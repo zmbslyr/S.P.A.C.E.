@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 var config = {
   type: Phaser.AUTO,
   width: 800,
