@@ -10,6 +10,9 @@ var config = {
 };
 
 var game = new Phaser.Game(config);
+var path;
+var turrets;
+var enemies;
 
 // Matrix representing the map
 var map = [
@@ -50,7 +53,6 @@ function create () {
   // Set up graphics and draw grid on top of background
   var graphics = this.add.graphics();
   drawGrid(graphics);
-
 
   // Draw path for enemies to follow
   path = this.add.path(120, -32);
@@ -104,8 +106,8 @@ function canPlaceTurret (index, index2) {
  * Return: void
  */
 function placeTurret (pointer) {
-  var i = Math.floor(pointer.y/80);
-  var j = Math.floor(pointer.x/80);
+  var i = Math.floor(pointer.y / 80);
+  var j = Math.floor(pointer.x / 80);
   if (canPlaceTurret(i, j)) {
     var turret = turrets.get();
     if (turret) {
