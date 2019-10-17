@@ -1,3 +1,3 @@
 # S.P.A.C.E.
-## derp derp derp
-### rabble rabble rabble
+## Space Paradox And Combat Enviroment
+A tower defence strategy game, created entirely using javascript
