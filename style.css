@@ -1,0 +1,16 @@
+@font-face {
+    font-family: spaceFont;
+    src: url(assets/fonts/nasalization-rg.ttf);
+}
+
+#logo {
+    font-family: spaceFont;
+    font-size: 70px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+#tagline {
+    font-family: spaceFont;
+    margin-top: 0;
+}
