@@ -1,3 +1,4 @@
+/* Imports custom font for logo and tagline */
 @font-face {
     font-family: spaceFont;
     src: url(assets/fonts/nasalization-rg.ttf);
