@@ -1,7 +1,7 @@
 var config = {
   type: Phaser.AUTO,
   width: 800,
-  height: 600,
+  height: 640,
   scene: {
     preload: preload,
     create: create,
@@ -18,7 +18,7 @@ function preload () {
 
 function create () {
   // Displays background image
-  this.add.image(400, 300, 'background');
+  this.add.image(400, 320, 'background');
   // Set up graphics and draw grid on top of background
   var graphics = this.add.graphics();
   drawGrid(graphics);
@@ -38,7 +38,7 @@ function drawGrid (graphics) {
   }
   for (var index2 = 0; index2 < 10; index2++) {
     graphics.moveTo(index2 * 80, 0);
-    graphics.lineTo(index2 * 80, 600);
+    graphics.lineTo(index2 * 80, 640);
   }
   graphics.strokePath();
 }
