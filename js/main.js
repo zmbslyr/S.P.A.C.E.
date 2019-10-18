@@ -1,6 +1,6 @@
 var config = {
   type: Phaser.AUTO,
-  width: 800,
+  width: 1120,
   height: 640,
   physics: {
     default: 'arcade'
@@ -23,14 +23,14 @@ var BULLET_DAMAGE = 50;
 
 // Matrix representing the map
 var map = [
-  [0,-1, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0,-1, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0,-1,-1,-1,-1,-1,-1,-1,-1, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0,-1, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0,-1, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0,-1, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0,-1, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0,-1, 0]
+  [0,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0,-1,-1,-1,-1,-1,-1,-1,-1, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0,-1, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0,-1, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0,-1, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0,-1, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0,-1, 0, 0, 0, 0, 0]
 ];
 
 /* Classes */
@@ -148,7 +148,7 @@ function preload () {
 // Create game space
 function create () {
   // Displays background image
-  this.add.image(400, 320, 'background');
+  this.add.image(560, 320, 'background');
 
   // Set up graphics and draw grid on top of background
   var graphics = this.add.graphics();
@@ -231,9 +231,9 @@ function drawGrid (graphics) {
   graphics.lineStyle(1, 0x0000ff, 0.8);
   for (var index = 0; index < 8; index++) {
     graphics.moveTo(0, index * 80);
-    graphics.lineTo(800, index * 80);
+    graphics.lineTo(1120, index * 80);
   }
-  for (var index2 = 0; index2 < 10; index2++) {
+  for (var index2 = 0; index2 < 14; index2++) {
     graphics.moveTo(index2 * 80, 0);
     graphics.lineTo(index2 * 80, 640);
   }
