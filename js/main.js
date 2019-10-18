@@ -48,7 +48,7 @@ var Turret = new Phaser.Class({
     map[i][j] = 1;
   },
   fire: function () {
-    var enemy = getEnemy(this.x, this.y, 200);
+    var enemy = getEnemy(this.x, this.y, 640);
     if (enemy) {
       var angle = Phaser.Math.Angle.Between(this.x, this.y, enemy.x, enemy.y);
       addBullet(this.x, this.y, angle);
@@ -105,10 +105,10 @@ var Enemy = new Phaser.Class({
 var Bullet = new Phaser.Class({
   Extends: Phaser.GameObjects.Image,
   initialize:
-  function Bulet (scene) {
-    Phaser.GameObjects.Image.call(this, scene, 0 ,0, 'bullet1');
-    this.dx = 0;
-    this.dy = 0;
+  function Bullet (scene) {
+    Phaser.GameObjects.Image.call(this, scene, 0, 0, 'bullet1');
+    this.incX = 0;
+    this.incY = 0;
     this.lifespan = 0;
     this.speed = Phaser.Math.GetSpeed(600, 1);
   },
@@ -121,7 +121,7 @@ var Bullet = new Phaser.Class({
     this.dx = Math.cos(angle);
     this.dy = Math.sin(angle);
 
-    this.lifespan = 300;
+    this.lifespan = 640;
   },
   update: function (time, delta) {
     this.lifespan -= delta;
@@ -166,9 +166,10 @@ function create () {
   this.nextEnemy = 0;
   // Create and shoot bullets
   bullets = this.physics.add.group({ classType: Bullet, runChildUpdate: true });
-  this.physics.add.overlap(enemies, bullets, damageEnemy);
   // Allows you to place turrets on the map
   turrets = this.add.group({ classType: Turret, runChildUpdate: true });
+
+  this.physics.add.overlap(enemies, bullets, damageEnemy);
   this.input.on('pointerdown', placeTurret);
 }
 
