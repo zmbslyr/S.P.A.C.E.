@@ -88,7 +88,7 @@ function update () {
 
 /**
  * canPlaceTurret - Checks if you can place a turret on the map
- * @index: Inital matrix index
+ * @index: Initial matrix index
  * @index2: Inner matrix index
  *
  * Return: True (Success)
