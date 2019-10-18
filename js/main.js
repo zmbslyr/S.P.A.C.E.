@@ -2,6 +2,9 @@ var config = {
   type: Phaser.AUTO,
   width: 800,
   height: 640,
+  physics: {
+    default: 'arcade'
+  },
   scene: {
     preload: preload,
     create: create,
@@ -13,6 +16,7 @@ var config = {
 var game = new Phaser.Game(config);
 var path;
 var turrets;
+var bullets;
 var enemies;
 var ENEMY_SPEED = 1 / 10000;
 var BULLET_DAMAGE = 50;
@@ -43,8 +47,17 @@ var Turret = new Phaser.Class({
     this.x = j * 80 + 80 / 2;
     map[i][j] = 1;
   },
+  fire: function () {
+    var enemy = getEnemy(this.x, this.y, 200);
+    if (enemy) {
+      var angle = Phaser.Math.Angle.Between(this.x, this.y, enemy.x, enemy.y);
+      addBullet(this.x, this.y, angle);
+      this.angle = (angle + Math.PI / 2) * Phaser.Math.RAD_TO_DEG;
+    }
+  },
   update: function (time, delta) {
     if (time > this.nextTic) {
+      this.fire();
       this.nextTic = time + 1000;
     }
   }
@@ -88,12 +101,48 @@ var Enemy = new Phaser.Class({
   }
 });
 
+// Bullet class to create and manage bullets
+var Bullet = new Phaser.Class({
+  Extends: Phaser.GameObjects.Image,
+  initialize:
+  function Bulet (scene) {
+    Phaser.GameObjects.Image.call(this, scene, 0 ,0, 'bullet1');
+    this.dx = 0;
+    this.dy = 0;
+    this.lifespan = 0;
+    this.speed = Phaser.Math.GetSpeed(600, 1);
+  },
+  fire: function (x, y, angle) {
+    this.setActive(true);
+    this.setVisible(true);
+    this.setPosition(x, y);
+    this.setRotation(angle);
+
+    this.dx = Math.cos(angle);
+    this.dy = Math.sin(angle);
+
+    this.lifespan = 300;
+  },
+  update: function (time, delta) {
+    this.lifespan -= delta;
+
+    this.x += this.dx * (this.speed * delta);
+    this.y += this.dy * (this.speed * delta);
+
+    if (this.lifespan <= 0) {
+      this.setActive(false);
+      this.setVisible(false);
+    }
+  }
+});
+
 // Preload all assets
 function preload () {
   // Loads background image
   this.load.image('background', 'assets/sprites/background.png');
   this.load.image('turret1', 'assets/sprites/turret1.png');
   this.load.image('enemy1', 'assets/sprites/enemy1.png');
+  this.load.image('bullet1', 'assets/sprites/bullet1.png');
 }
 
 // Create game space
@@ -113,11 +162,62 @@ function create () {
   graphics.lineStyle(3, 0xffffff, 1);
   path.draw(graphics);
   // Create enemies and spawn them
-  enemies = this.add.group({ classType: Enemy, runChildUpdate: true });
+  enemies = this.physics.add.group({ classType: Enemy, runChildUpdate: true });
   this.nextEnemy = 0;
+  // Create and shoot bullets
+  bullets = this.physics.add.group({ classType: Bullet, runChildUpdate: true });
+  this.physics.add.overlap(enemies, bullets, damageEnemy);
   // Allows you to place turrets on the map
   turrets = this.add.group({ classType: Turret, runChildUpdate: true });
   this.input.on('pointerdown', placeTurret);
+}
+
+/**
+ * addBullet - Allows turret to shoot bullets
+ * @x: x coordinate
+ * @y: y coordinate
+ * @angle: Angle the bullet is facing
+ *
+ * Return: void
+ */
+function addBullet (x, y, angle) {
+  var bullet = bullets.get();
+  if (bullet) {
+    bullet.fire(x, y, angle);
+  }
+}
+
+/**
+ * getEnemy - Finds the closest enemies distance
+ * @x: x coordiante
+ * @y: y coordinate
+ * @distance: Distance to enemy
+ *
+ * Return - An enemy in the enemy pool (Success)
+ */
+function getEnemy (x, y, distance) {
+  var enemyUnits = enemies.getChildren();
+  for (var index = 0; index < enemyUnits.length; index++) {
+    if (enemyUnits[index].active && Phaser.Math.Distance.Between(x, y, enemyUnits[index].x, enemyUnits[index].y) < distance) {
+      return (enemyUnits[index]);
+    }
+    return (false);
+  }
+}
+
+/**
+ * damageEnemy - Damages enemy that bullet hits
+ * @enemy: Enemy to hit
+ * @bullet: Bullet to use
+ *
+ * Return: void
+ */
+function damageEnemy (enemy, bullet) {
+  if (enemy.active === true && bullet.active === true) {
+    bullet.setActive(false);
+    bullet.setVisible(false);
+    enemy.receiveDamage(BULLET_DAMAGE);
+  }
 }
 
 /**
