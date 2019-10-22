@@ -20,11 +20,17 @@ var bullets;
 var enemies;
 var ENEMY_SPEED = 1 / 10000;
 var BULLET_DAMAGE = 50;
+
+// UI Element Variables
 var score = 0;
 var scoreText;
 var credits = 300; // starting credits
 var creditsText;
 var turretCost = 75;
+
+// Buttons
+var pauseButton;
+var gamePaused = false;
 
 // Matrix representing the map
 var map = [
@@ -171,6 +177,14 @@ function create () {
     fontSize: '32px',
     fill: '#FFF'
   });
+
+  // Pause Button
+  pauseButton = this.add.text(500, 16, 'Pause', {
+    fontSize: '32px',
+    fill: '#FFF'
+  });
+  pauseButton.setInteractive();
+  pauseButton.on('pointerdown', () => pauseGame());
 
   // Draw path for enemies to follow
   path = this.add.path(120, -32);
@@ -324,5 +338,20 @@ function update (time, delta) {
       enemy.startOnPath();
       this.nextEnemy = time + 2000;
     }
+  }
+}
+
+// Resume isn't working -- might need separate scene
+function pauseGame () {
+  if (gamePaused === false) {
+    gamePaused = true;
+    var pauseText = this.add.text(400, 350, 'P.A.U.S.E.D.', {
+     fontSize: '64px',
+     fill: '#000'
+    });
+    this.physics.pause();
+  } else {
+    gamePaused = false;
+    this.physics.resume();
   }
 }
