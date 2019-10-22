@@ -31,6 +31,7 @@ var turretCost = 75;
 // Buttons
 var pauseButton;
 var gamePaused = false;
+var pauseText;
 
 // Matrix representing the map
 var map = [
@@ -184,7 +185,7 @@ function create () {
     fill: '#FFF'
   });
   pauseButton.setInteractive();
-  pauseButton.on('pointerdown', () => pauseGame());
+  pauseButton.on('pointerdown', () => pauseGame()); // might be crashing on click?
 
   // Draw path for enemies to follow
   path = this.add.path(120, -32);
@@ -228,7 +229,7 @@ function addBullet (x, y, angle) {
 
 /**
  * getEnemy - Finds the closest enemies distance
- * @x: x coordiante
+ * @x: x coordinate
  * @y: y coordinate
  * @distance: Distance to enemy
  *
@@ -300,7 +301,7 @@ function canPlaceTurret (index, index2) {
 }
 
 /**
- * placeTurret - Function to place towes on map
+ * placeTurret - Function to place towers on map
  * @pointer: Place the pointer clicks
  *
  * Return: void
@@ -343,9 +344,10 @@ function update (time, delta) {
 
 // Resume isn't working -- might need separate scene
 function pauseGame () {
+  pauseButton.setText('I am clicked!');
   if (gamePaused === false) {
     gamePaused = true;
-    var pauseText = this.add.text(400, 350, 'P.A.U.S.E.D.', {
+    pauseText = this.add.text(500, 350, 'P.A.U.S.E.D.', {
      fontSize: '64px',
      fill: '#000'
     });
