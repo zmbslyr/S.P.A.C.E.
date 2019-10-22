@@ -20,6 +20,11 @@ var bullets;
 var enemies;
 var ENEMY_SPEED = 1 / 10000;
 var BULLET_DAMAGE = 50;
+var score = 0;
+var scoreText;
+var credits = 300; // starting credits
+var creditsText;
+var turretCost = 75;
 
 // Matrix representing the map
 var map = [
@@ -154,6 +159,19 @@ function create () {
   var graphics = this.add.graphics();
   drawGrid(graphics);
 
+/* GAME INFORMATION / UI */
+  // Score Text
+  scoreText = this.add.text(16, 600, 'Score: 0', {
+    fontSize: '32px',
+    fill: '#FFF'
+  });
+
+  // Funds Text
+  creditsText = this.add.text(16, 550, 'Credits: 300', {
+    fontSize: '32px',
+    fill: '#FFF'
+  });
+
   // Draw path for enemies to follow
   path = this.add.path(120, -32);
   path.lineTo(120, 200);
@@ -162,12 +180,18 @@ function create () {
   graphics.lineStyle(3, 0xffffff, 1);
   path.draw(graphics);
   // Create enemies and spawn them
-  enemies = this.physics.add.group({ classType: Enemy, runChildUpdate: true });
+  enemies = this.physics.add.group({
+    classType: Enemy,
+    runChildUpdate: true });
   this.nextEnemy = 0;
   // Create and shoot bullets
-  bullets = this.physics.add.group({ classType: Bullet, runChildUpdate: true });
+  bullets = this.physics.add.group({
+    classType: Bullet,
+    runChildUpdate: true });
   // Allows you to place turrets on the map
-  turrets = this.add.group({ classType: Turret, runChildUpdate: true });
+  turrets = this.add.group({
+    classType: Turret,
+    runChildUpdate: true });
 
   this.physics.add.overlap(enemies, bullets, damageEnemy);
   this.input.on('pointerdown', placeTurret);
@@ -218,6 +242,14 @@ function damageEnemy (enemy, bullet) {
     bullet.setActive(false);
     bullet.setVisible(false);
     enemy.receiveDamage(BULLET_DAMAGE);
+
+    // Add points/funds for damage
+    // Should funds be moved to turret destruction?
+    score += 5;
+    scoreText.setText('Score: ' + score);
+    credits += 5;
+    creditsText.setText('Credits: ' + credits);
+
   }
 }
 
@@ -248,7 +280,9 @@ function drawGrid (graphics) {
  * Return: True (Success)
  */
 function canPlaceTurret (index, index2) {
-  return (map[index][index2] === 0);
+  if (credits >= turretCost) {
+    return (map[index][index2] === 0);
+  }
 }
 
 /**
@@ -266,6 +300,10 @@ function placeTurret (pointer) {
       turret.setActive(true);
       turret.setVisible(true);
       turret.place(i, j);
+
+      // Cost of turret
+      credits -= turretCost;
+      creditsText.setText('Credits: ' + credits);
     }
   }
 }
