@@ -20,6 +20,7 @@ var bullets;
 var enemies;
 var ENEMY_SPEED = 1 / 10000;
 var BULLET_DAMAGE = 50;
+var endPortal;
 
 // UI Element Variables
 var score = 0;
@@ -27,6 +28,8 @@ var scoreText;
 var credits = 300; // starting credits
 var creditsText;
 var turretCost = 75;
+var playerLives = 10; // need endgame condition
+var playerLivesText;
 
 // Buttons
 var pauseButton;
@@ -88,6 +91,7 @@ var Enemy = new Phaser.Class({
   startOnPath: function () {
     this.follower.t = 0;
     this.hp = 100;
+    this.isHome = false;
     path.getPoint(this.follower.t, this.follower.vec);
     this.setPosition(this.follower.vec.x, this.follower.vec.y);
   },
@@ -162,6 +166,10 @@ function create () {
   // Displays background image
   this.add.image(560, 320, 'background');
 
+  // Set endpoint
+  endPortal = this.physics.add.staticGroup();
+  endPortal.create(680, 600, 'enemy1');
+
   // Set up graphics and draw grid on top of background
   var graphics = this.add.graphics();
   drawGrid(graphics);
@@ -179,6 +187,12 @@ function create () {
     fill: '#FFF'
   });
 
+  // Player Lives
+  playerLivesText = this.add.text(296, 600, 'Lives: 10', {
+    fontSize: '32px',
+    fill: '#FFF'
+  });
+
   // Pause Button
   pauseButton = this.add.text(500, 16, 'Pause', {
     fontSize: '32px',
@@ -186,6 +200,7 @@ function create () {
   });
   pauseButton.setInteractive();
   pauseButton.on('pointerdown', pauseGame);
+
 
   // Draw path for enemies to follow
   path = this.add.path(120, -32);
@@ -209,6 +224,7 @@ function create () {
     runChildUpdate: true });
 
   this.physics.add.overlap(enemies, bullets, damageEnemy);
+  this.physics.add.collider(enemies, endPortal, damageLife, null, this);
   this.input.on('pointerdown', placeTurret);
 }
 
@@ -323,6 +339,35 @@ function placeTurret (pointer) {
   }
 }
 
+// Exit Portal
+function damageLife (enemy, endPortal) {
+  if (enemy.isHome == false) {
+    enemy.isHome = true;
+    enemy.setActive(false);
+    enemy.setVisible(false);
+    playerLives -= 1;
+    playerLivesText.setText('Lives: ' + playerLives);
+  }
+}
+
+/* Function not working - can change text of button if that is the
+only thing not commented out - even just if statement seems to make
+it crash. */
+function pauseGame (pauseText, player) {
+  pauseButton.setText('I am clicked!');
+  if (gamePaused == false) {
+    this.gamePaused = true;
+    pauseText = this.add.text(500, 350, 'P.A.U.S.E.D.', {
+     fontSize: '64px',
+     fill: '#000'
+    });
+    this.physics.pause();
+  } else {
+    this.gamePaused = false;
+    this.physics.resume();
+  }
+}
+
 /**
  * update - Function to update the game
  * @time:
@@ -342,6 +387,7 @@ function update (time, delta) {
   }
 }
 
+<<<<<<< HEAD
 /* Function not working - can change text of button if that is the
 only thing not commented out - even just if statement seems to make
 it crash. */
@@ -359,3 +405,5 @@ function pauseGame () {
     this.physics.resume();
   }
 }
+=======
+>>>>>>> 9a154b9d4933fe7cb6796cab12c31f324fa01cce
