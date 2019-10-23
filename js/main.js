@@ -31,6 +31,7 @@ var creditsText;
 var turretCost = 75;
 var playerLives = 10; // need endgame condition
 var playerLivesText;
+var waveNumber;
 
 // Buttons
 var pauseButton;
@@ -203,7 +204,7 @@ function create () {
   pauseButton.on('pointerdown', pauseGame);
 
   // Wave Number
-  waveNumber = this.add.text(296,550, `Wave: ${WAVE_NUMBER}`, {
+  waveNumber = this.add.text(296, 550, `Wave: ${WAVE_NUMBER}`, {
     fontSize: '32px',
     fill: '#FFF'
   });
