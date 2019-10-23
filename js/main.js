@@ -48,10 +48,10 @@ var map = [
 /* Classes */
 // Turret class to handle all turret functions
 var Turret = new Phaser.Class({
-  Extends: Phaser.GameObjects.Image,
+  Extends: Phaser.GameObjects.Sprite,
   initialize:
   function Turret (scene) {
-    Phaser.GameObjects.Image.call(this, scene, 0, 0, 'turret1');
+    Phaser.GameObjects.Sprite.call(this, scene, 0, 0, 'turret1');
     this.nextTic = 0;
   },
   place: function (i, j) {
@@ -347,11 +347,11 @@ only thing not commented out - even just if statement seems to make
 it crash. */
 function pauseGame () {
   pauseButton.setText('I am clicked!');
-  if (gamePaused == false) {
+  if (gamePaused === false) {
     gamePaused = true;
     pauseText = this.add.text(500, 350, 'P.A.U.S.E.D.', {
-     fontSize: '64px',
-     fill: '#000'
+      fontSize: '64px',
+      fill: '#000'
     });
     this.physics.pause();
   } else {
