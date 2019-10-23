@@ -185,7 +185,7 @@ function create () {
     fill: '#FFF'
   });
   pauseButton.setInteractive();
-  pauseButton.on('pointerdown', () => pauseGame()); // might be crashing on click?
+  pauseButton.on('pointerdown', pauseGame);
 
   // Draw path for enemies to follow
   path = this.add.path(120, -32);
@@ -342,10 +342,12 @@ function update (time, delta) {
   }
 }
 
-// Resume isn't working -- might need separate scene
+/* Function not working - can change text of button if that is the
+only thing not commented out - even just if statement seems to make
+it crash. */
 function pauseGame () {
   pauseButton.setText('I am clicked!');
-  if (gamePaused === false) {
+  if (gamePaused == false) {
     gamePaused = true;
     pauseText = this.add.text(500, 350, 'P.A.U.S.E.D.', {
      fontSize: '64px',
