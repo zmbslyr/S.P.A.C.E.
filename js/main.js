@@ -282,7 +282,6 @@ function damageEnemy (enemy, bullet) {
     scoreText.setText('Score: ' + score);
     credits += 5;
     creditsText.setText('Credits: ' + credits);
-
   }
 }
 
