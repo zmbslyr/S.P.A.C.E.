@@ -19,6 +19,7 @@ var turrets;
 var bullets;
 var enemies;
 var ENEMY_SPEED = 1 / 10000;
+var WAVE_NUMBER = 1;
 var BULLET_DAMAGE = 50;
 var endPortal;
 
@@ -201,6 +202,12 @@ function create () {
   pauseButton.setInteractive();
   pauseButton.on('pointerdown', pauseGame);
 
+  // Wave Number
+  waveNumber = this.add.text(296,550, `Wave: ${WAVE_NUMBER}`, {
+    fontSize: '32px',
+    fill: '#FFF'
+  });
+
   // Draw path for enemies to follow
   path = this.add.path(120, -32);
   path.lineTo(120, 200);
@@ -376,14 +383,16 @@ function pauseGame (pauseText, player) {
  *
  * Return: void
  */
+let index = 0;
 function update (time, delta) {
   if (time > this.nextEnemy) {
     var enemy = enemies.get();
-    if (enemy) {
+    if (enemy && index < WAVE_NUMBER * 5) {
       enemy.setActive(true);
       enemy.setVisible(true);
       enemy.startOnPath();
-      this.nextEnemy = time + 2000;
+      this.nextEnemy = time + 2000 - (WAVE_NUMBER * 100);
+      index++;
     }
   }
 }
