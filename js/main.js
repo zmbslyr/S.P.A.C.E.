@@ -201,7 +201,6 @@ function create () {
   pauseButton.setInteractive();
   pauseButton.on('pointerdown', pauseGame);
 
-
   // Draw path for enemies to follow
   path = this.add.path(120, -32);
   path.lineTo(120, 200);
@@ -212,16 +211,19 @@ function create () {
   // Create enemies and spawn them
   enemies = this.physics.add.group({
     classType: Enemy,
-    runChildUpdate: true });
+    runChildUpdate: true
+  });
   this.nextEnemy = 0;
   // Create and shoot bullets
   bullets = this.physics.add.group({
     classType: Bullet,
-    runChildUpdate: true });
+    runChildUpdate: true
+  });
   // Allows you to place turrets on the map
   turrets = this.add.group({
     classType: Turret,
-    runChildUpdate: true });
+    runChildUpdate: true
+  });
 
   this.physics.add.overlap(enemies, bullets, damageEnemy);
   this.physics.add.collider(enemies, endPortal, damageLife, null, this);
@@ -341,7 +343,7 @@ function placeTurret (pointer) {
 
 // Exit Portal
 function damageLife (enemy, endPortal) {
-  if (enemy.isHome == false) {
+  if (enemy.isHome === false) {
     enemy.isHome = true;
     enemy.setActive(false);
     enemy.setVisible(false);
@@ -355,11 +357,11 @@ only thing not commented out - even just if statement seems to make
 it crash. */
 function pauseGame (pauseText, player) {
   pauseButton.setText('I am clicked!');
-  if (gamePaused == false) {
+  if (gamePaused === false) {
     this.gamePaused = true;
     pauseText = this.add.text(500, 350, 'P.A.U.S.E.D.', {
-     fontSize: '64px',
-     fill: '#000'
+      fontSize: '64px',
+      fill: '#000'
     });
     this.physics.pause();
   } else {
@@ -386,24 +388,3 @@ function update (time, delta) {
     }
   }
 }
-
-<<<<<<< HEAD
-/* Function not working - can change text of button if that is the
-only thing not commented out - even just if statement seems to make
-it crash. */
-function pauseGame () {
-  pauseButton.setText('I am clicked!');
-  if (gamePaused === false) {
-    gamePaused = true;
-    pauseText = this.add.text(500, 350, 'P.A.U.S.E.D.', {
-      fontSize: '64px',
-      fill: '#000'
-    });
-    this.physics.pause();
-  } else {
-    gamePaused = false;
-    this.physics.resume();
-  }
-}
-=======
->>>>>>> 9a154b9d4933fe7cb6796cab12c31f324fa01cce
