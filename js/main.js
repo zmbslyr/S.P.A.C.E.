@@ -9,6 +9,10 @@ var config = {
     preload: preload,
     create: create,
     update: update
+  },
+  audio: {
+    disableWebAudio: true,
+    noAudio: false
   }
 };
 
@@ -25,6 +29,7 @@ var ENEMY_SPEED = 1 / 10000;
 var WAVE_NUMBER = 1;
 var BULLET_DAMAGE = 50;
 var endPortal;
+var music;
 
 // UI Element Variables
 var score = 0;
@@ -164,12 +169,18 @@ function preload () {
   this.load.image('turret1', 'assets/sprites/turret1.png');
   this.load.image('enemy1', 'assets/sprites/enemy1.png');
   this.load.image('bullet1', 'assets/sprites/bullet1.png');
+  this.load.audio('wave1', 'assets/sounds/background.mp3');
 }
 
 // Create game space
 function create () {
   // Displays background image
   this.add.image(560, 320, 'background');
+
+  // Play background music
+  music = this.sound.add('wave1');
+  music.setLoop(true);
+  music.play();
 
   // Set endpoint
   endPortal = this.physics.add.staticGroup();
