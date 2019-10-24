@@ -12,6 +12,9 @@ var config = {
   }
 };
 
+// width and height variables
+var w = 1120, h = 640;
+
 /* Global variables */
 var game = new Phaser.Game(config);
 var path;
@@ -282,6 +285,7 @@ function damageEnemy (enemy, bullet) {
     scoreText.setText('Score: ' + score);
     credits += 5;
     creditsText.setText('Credits: ' + credits);
+
   }
 }
 
@@ -354,19 +358,19 @@ function damageLife (enemy, endPortal) {
 /* Function not working - can change text of button if that is the
 only thing not commented out - even just if statement seems to make
 it crash. */
-function pauseGame (pauseText, player) {
+function pauseGame (pauseButton) {
   pauseButton.setText('I am clicked!');
-  if (gamePaused === false) {
-    this.gamePaused = true;
-    pauseText = this.add.text(500, 350, 'P.A.U.S.E.D.', {
-      fontSize: '64px',
-      fill: '#000'
-    });
-    this.physics.pause();
-  } else {
-    this.gamePaused = false;
-    this.physics.resume();
-  }
+  // if (gamePaused === false) {
+  //   this.gamePaused = true;
+  //   pauseText = this.add.text(500, 350, 'P.A.U.S.E.D.', {
+  //     fontSize: '64px',
+  //     fill: '#000'
+  //   });
+  //   this.physics.pause();
+  // } else {
+  //   this.gamePaused = false;
+  //   this.physics.resume();
+  // }
 }
 
 /**
@@ -383,7 +387,7 @@ function update (time, delta) {
       enemy.setActive(true);
       enemy.setVisible(true);
       enemy.startOnPath();
-      this.nextEnemy = time + 2000;
+      this.nextEnemy = time + 600;
     }
   }
 }
