@@ -29,7 +29,12 @@ var ENEMY_SPEED = 1 / 10000;
 var WAVE_NUMBER = 1;
 var BULLET_DAMAGE = 50;
 var endPortal;
+
+// Sound variables
 var music;
+var shoot;
+var boom;
+var leave;
 
 // UI Element Variables
 var score = 0;
@@ -112,6 +117,7 @@ var Enemy = new Phaser.Class({
     if (this.hp <= 0) {
       this.setActive(false);
       this.setVisible(false);
+      boom.play();
     }
   },
 
@@ -169,7 +175,11 @@ function preload () {
   this.load.image('turret1', 'assets/sprites/turret1.png');
   this.load.image('enemy1', 'assets/sprites/enemy1.png');
   this.load.image('bullet1', 'assets/sprites/bullet1.png');
-  this.load.audio('wave1', 'assets/sounds/background.mp3');
+  this.load.image('endPortal', 'assets/sprites/endPortal.png');
+  this.load.audio('wave1', ['assets/sounds/background.mp3', 'assets/sounds/background.ogg']);
+  this.load.audio('shoot', ['assets/sounds/shoot1.mp3', 'assets/sounds/shoot1.ogg']);
+  this.load.audio('boom', ['assets/sounds/enemyDeath.mp3', 'assets/sounds/enemyDeath.ogg']);
+  this.load.audio('leave', ['assets/sounds/enemyLeaves.mp3', 'assets/sounds/enemyLeaves.ogg']);
 }
 
 // Create game space
@@ -182,15 +192,19 @@ function create () {
   music.setLoop(true);
   music.play();
 
+  shoot = this.sound.add('shoot');
+  boom = this.sound.add('boom');
+  leave = this.sound.add('leave');
+
   // Set endpoint
   endPortal = this.physics.add.staticGroup();
-  endPortal.create(680, 600, 'enemy1');
+  endPortal.create(680, 580, 'endPortal');
 
   // Set up graphics and draw grid on top of background
   var graphics = this.add.graphics();
   drawGrid(graphics);
 
-/* GAME INFORMATION / UI */
+  /* GAME INFORMATION / UI */
   // Score Text
   scoreText = this.add.text(16, 600, 'Score: 0', {
     fontSize: '32px',
@@ -264,6 +278,7 @@ function addBullet (x, y, angle) {
   var bullet = bullets.get();
   if (bullet) {
     bullet.fire(x, y, angle);
+    shoot.play();
   }
 }
 
@@ -304,7 +319,6 @@ function damageEnemy (enemy, bullet) {
     scoreText.setText('Score: ' + score);
     credits += 5;
     creditsText.setText('Credits: ' + credits);
-
   }
 }
 
@@ -369,6 +383,7 @@ function damageLife (enemy, endPortal) {
     enemy.isHome = true;
     enemy.setActive(false);
     enemy.setVisible(false);
+    leave.play();
     playerLives -= 1;
     playerLivesText.setText('Lives: ' + playerLives);
   }
