@@ -34,6 +34,7 @@ var endPortal;
 var music;
 var shoot;
 var boom;
+var leave;
 
 // UI Element Variables
 var score = 0;
@@ -178,6 +179,7 @@ function preload () {
   this.load.audio('wave1', ['assets/sounds/background.mp3', 'assets/sounds/background.ogg']);
   this.load.audio('shoot', ['assets/sounds/shoot1.mp3', 'assets/sounds/shoot1.ogg']);
   this.load.audio('boom', ['assets/sounds/enemyDeath.mp3', 'assets/sounds/enemyDeath.ogg']);
+  this.load.audio('leave', ['assets/sounds/enemyLeaves.mp3', 'assets/sounds/enemyLeaves.ogg']);
 }
 
 // Create game space
@@ -192,6 +194,7 @@ function create () {
 
   shoot = this.sound.add('shoot');
   boom = this.sound.add('boom');
+  leave = this.sound.add('leave');
 
   // Set endpoint
   endPortal = this.physics.add.staticGroup();
@@ -380,6 +383,7 @@ function damageLife (enemy, endPortal) {
     enemy.isHome = true;
     enemy.setActive(false);
     enemy.setVisible(false);
+    leave.play();
     playerLives -= 1;
     playerLivesText.setText('Lives: ' + playerLives);
   }
