@@ -169,6 +169,7 @@ function preload () {
   this.load.image('turret1', 'assets/sprites/turret1.png');
   this.load.image('enemy1', 'assets/sprites/enemy1.png');
   this.load.image('bullet1', 'assets/sprites/bullet1.png');
+  this.load.image('endPortal', 'assets/sprites/endPortal.png');
   this.load.audio('wave1', 'assets/sounds/background.mp3');
 }
 
@@ -184,7 +185,7 @@ function create () {
 
   // Set endpoint
   endPortal = this.physics.add.staticGroup();
-  endPortal.create(680, 600, 'enemy1');
+  endPortal.create(680, 580, 'endPortal');
 
   // Set up graphics and draw grid on top of background
   var graphics = this.add.graphics();
