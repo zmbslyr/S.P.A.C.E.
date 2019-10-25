@@ -29,7 +29,10 @@ var ENEMY_SPEED = 1 / 10000;
 var WAVE_NUMBER = 1;
 var BULLET_DAMAGE = 50;
 var endPortal;
+
+// Sound variables
 var music;
+var shoot;
 
 // UI Element Variables
 var score = 0;
@@ -170,7 +173,8 @@ function preload () {
   this.load.image('enemy1', 'assets/sprites/enemy1.png');
   this.load.image('bullet1', 'assets/sprites/bullet1.png');
   this.load.image('endPortal', 'assets/sprites/endPortal.png');
-  this.load.audio('wave1', 'assets/sounds/background.mp3');
+  this.load.audio('wave1', ['assets/sounds/background.mp3', 'assets/sounds/background.ogg']);
+  this.load.audio('shoot', ['assets/sounds/shoot1.mp3', 'assets/sounds/shoot1.ogg']);
 }
 
 // Create game space
@@ -182,6 +186,8 @@ function create () {
   music = this.sound.add('wave1');
   music.setLoop(true);
   music.play();
+
+  shoot = this.sound.add('shoot');
 
   // Set endpoint
   endPortal = this.physics.add.staticGroup();
@@ -265,6 +271,7 @@ function addBullet (x, y, angle) {
   var bullet = bullets.get();
   if (bullet) {
     bullet.fire(x, y, angle);
+    shoot.play();
   }
 }
 
