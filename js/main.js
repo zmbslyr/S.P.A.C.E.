@@ -414,17 +414,15 @@ function pauseGame (pauseButton) {
  *
  * Return: void
  */
-let index = 0;
 function update (time, delta) {
   if (time > this.nextEnemy) {
     var enemy = enemies.get();
-    if (enemy && index < WAVE_NUMBER * 5) {
+    if (enemy) {
       enemy.setActive(true);
       enemy.setVisible(true);
       enemy.startOnPath();
 
-      this.nextEnemy = time + 2000 - (WAVE_NUMBER * 100);
-      index++;
+      this.nextEnemy = time + 2000;
     }
   }
 }
