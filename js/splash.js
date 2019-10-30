@@ -1,17 +1,10 @@
-var config = {
-  type: Phaser.AUTO,
-  width: 1120,
-  height: 640,
-  physics: {
-    default: 'arcade'
-  },
-  scene: {
-    preload: preload,
-    create: create,
-    update: update
+class Splash extends Phaser.scene {
+  constructor () {
+    super({ key: 'splash' });
   }
-};
 
-function preload () {
-  game.load.script('splash', 'js/')
+  create () {
+    this.add.text(560, 320, 'S.P.A.C.E.');
+    this.scene.start('game');
+  }
 }

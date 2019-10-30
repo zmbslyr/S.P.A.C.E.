@@ -29,6 +29,7 @@ var ENEMY_SPEED = 1 / 10000;
 var WAVE_NUMBER = 1;
 var BULLET_DAMAGE = 50;
 var endPortal;
+var q = 2000;
 
 // Sound variables
 var music;
@@ -232,7 +233,7 @@ function create () {
   pauseButton.on('pointerdown', pauseGame);
 
   // Wave Number
-  waveNumber = this.add.text(296, 550, `Wave: ${WAVE_NUMBER}`, {
+  waveNumber = this.add.text(296, 550, 'Wave: 1', {
     fontSize: '32px',
     fill: '#FFF'
   });
@@ -421,8 +422,18 @@ function update (time, delta) {
       enemy.setActive(true);
       enemy.setVisible(true);
       enemy.startOnPath();
-
-      this.nextEnemy = time + 2000;
+      this.nextEnemy = time + q;
+      q -= 100;
+    }
+    if (q <= 500) {
+      enemy.setActive(false);
+      enemy.setVisible(false);
+    }
+    if (q === -130000) {
+      WAVE_NUMBER++;
+      waveNumber.setText('Wave: ' + WAVE_NUMBER);
+      q = 2000;
+      ENEMY_SPEED += 1 / 20000;
     }
   }
 }
