@@ -6,13 +6,10 @@
 
 body {
     background-image: url(./assets/web/background3.jpg);
-    background-position: 0% 0%;
-    background-size: 100% 100%;
+    background-position: bottom 10px;
+    background-size: cover;
     background-color: black;
-    background-size: 120%;
     background-repeat: no-repeat;
-    background-position: center center; 
-    text-align: center;
 }
 
 #logo {
@@ -32,15 +29,11 @@ body {
     margin-left: 10px;
     text-align: left;
 }
-canvas {
-    position: center;
-    object-fit: scale-down;
-}
-
 
 .top {
+    height: auto;
+    width: auto;
     padding-left: 10px;
-    padding-bottom: 0px;
     background-image: linear-gradient(to top left, black, black, #251c2e, #421d5f, #4d1e63, #361f41, #251c2e, magenta,yellow);
     border-style: solid;
     border-color: #8c8b8a;
@@ -59,11 +52,11 @@ footer {
 
 .footer {
     font-family: spaceFont;
-    padding-top: 2px;
+    padding-top: 5px;
     position: fixed;
     left: 0;
     bottom: 0;
-    height: 5%;
+    height: 4%;
     width: 98.9%;
     background-image: linear-gradient(to top left, black, black, #251c2e, #421d5f, #4d1e63, #361f41, #251c2e, black);
     color: white;
@@ -79,18 +72,18 @@ footer {
     left: 500px;
 }
 
-.twitter {
-    height: 10%;
-    width: 10%;
-    left: 500px;
-}
-img {
-    max-width: 3%;
-    height: auto;
-    padding-left: 10px;
+table {
+    color: white;
+    position: relative;
 }
 
-canvas{
-    padding-top: 0px;
-    bo
+#container {
+    position: center;
+    position: absolute;
+    left: 20%;
+}
+canvas {
+    position: absolute;
+    left: 20%;
+    top: 15%;
 }

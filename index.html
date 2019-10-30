@@ -1,31 +1,54 @@
 <!DOCTYPE html>
 <html lang=en>
 <head>
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="Mon, 22 Jul 2002 11:12:01 GMT">
     <meta charset="UTF-8">
     <title>S.P.A.C.E.</title>
     <script src="//cdn.jsdelivr.net/npm/phaser@3.11.0/dist/phaser.js"></script>
     <script src="js/game.js"></script>
     <link rel="stylesheet" href="style.css">
-
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Favicon Stuff-->
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/web/rocket.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/web/rocket.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/web/rocket.png">
+    <link rel="manifest" href="/site.webmanifest" >
 </head>
 <body>
-    <div class="top", onselectstart="return false">
-    <h1 id="logo">S.P.A.C.E.</h1>
-    <h4 id="tagline">Space Paradox and Combat Enviroment</h4>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="top", onselectstart="return false">
+                    <h1 id="logo">S.P.A.C.E.</h1>
+                    <h4 id="tagline">Space Paradox and Combat Enviroment</h4>
+                </div>    
+            </div>
+        </div>
     </div>
-    <div class="jscan">
-        <canvas></canvas>
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-2">
+                <canvas  id="canvas1" width="1120" height="600"></canvas>
+            </div>
+        </div>
     </div>
 </body>
 <footer>
-    <div class="footer", onselectstart="return false">
-       Have Fun &VerticalTilde;  Github:
-       <a href="https://github.com/zmbslyr/S.P.A.C.E." target="_blank"><img src="./assets/web/githubW.png"></a>
+    <div class="container">
+        <div class="row">
+            <div class="col-3">
+                <div class="footer", onselectstart="return false">
+                    Have Fun &VerticalTilde;  Github:
+                    <a href="https://github.com/zmbslyr/S.P.A.C.E." target="_blank"><img src="./assets/web/githubW.png"></a>
+    
+                </div>
+            </div>
+        </div>
     </div>
 </footer>
 </html>
