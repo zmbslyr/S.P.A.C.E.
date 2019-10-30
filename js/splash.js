@@ -6,22 +6,12 @@ var config = {
     default: 'arcade'
   },
   scene: {
-    key: 'menu',
     preload: preload,
     create: create,
     update: update
   }
 };
 
-//buttons
-var startButton
-
 function preload () {
-    this.load.image('background', 'assets/sprites/background.png');
+  game.load.script('splash', 'js/')
 }
-function create () {
-    
-}
-function update () {
-}
-  
