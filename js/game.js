@@ -28,6 +28,7 @@ var enemies;
 var ENEMY_SPEED = 1 / 10000;
 var WAVE_NUMBER = 1;
 var BULLET_DAMAGE = 50;
+var ENEMY_HEALTH = 100;
 var endPortal;
 var q = 2000;
 
@@ -106,7 +107,7 @@ var Enemy = new Phaser.Class({
 
   startOnPath: function () {
     this.follower.t = 0;
-    this.hp = 100;
+    this.hp = ENEMY_HEALTH;
     this.isHome = false;
     path.getPoint(this.follower.t, this.follower.vec);
     this.setPosition(this.follower.vec.x, this.follower.vec.y);
@@ -230,7 +231,9 @@ function create () {
     fill: '#FFF'
   });
   pauseButton.setInteractive();
-  pauseButton.on('pointerdown', pauseGame);
+  pauseButton.on('pointerdown', function (event) {
+    this.scene.pause();
+  });
 
   // Wave Number
   waveNumber = this.add.text(296, 550, 'Wave: 1', {
@@ -390,24 +393,6 @@ function damageLife (enemy, endPortal) {
   }
 }
 
-/* Function not working - can change text of button if that is the
-only thing not commented out - even just if statement seems to make
-it crash. */
-function pauseGame (pauseButton) {
-  pauseButton.setText('I am clicked!');
-  // if (gamePaused === false) {
-  //   this.gamePaused = true;
-  //   pauseText = this.add.text(500, 350, 'P.A.U.S.E.D.', {
-  //     fontSize: '64px',
-  //     fill: '#000'
-  //   });
-  //   this.physics.pause();
-  // } else {
-  //   this.gamePaused = false;
-  //   this.physics.resume();
-  // }
-}
-
 /**
  * update - Function to update the game
  * @time:
@@ -416,6 +401,14 @@ function pauseGame (pauseButton) {
  * Return: void
  */
 function update (time, delta) {
+  if (playerLives <=0) {
+    gameOverText = this.add.text(w/2, h/2, 'Game Over', {
+      fontSize: '64px',
+      fill: '#F00'
+    });
+    this.physics.pause();
+    this.scene.pause();
+  }
   if (time > this.nextEnemy) {
     var enemy = enemies.get();
     if (enemy) {
@@ -434,6 +427,21 @@ function update (time, delta) {
       waveNumber.setText('Wave: ' + WAVE_NUMBER);
       q = 2000;
       ENEMY_SPEED += 1 / 20000;
+      ENEMY_HEALTH += 100;
     }
+  }
+}
+
+var gameOverText;
+class GameOver extends Phaser.Scene {
+  constructor () {
+    super(config);
+  }
+
+  create () {
+    gameOverText = this.add.text(w/2, h/2, 'Game Over', {
+      fontSize: '64px',
+      fill: '#F00'
+    });
   }
 }
