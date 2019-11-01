@@ -47,6 +47,10 @@ var turretCost = 75;
 var playerLives = 10; // need endgame condition
 var playerLivesText;
 var waveNumber;
+var waveTimerText;
+var gameOverText;
+
+
 
 // Buttons
 var pauseButton;
@@ -226,17 +230,23 @@ function create () {
   });
 
   // Pause Button
-  pauseButton = this.add.text(500, 16, 'Pause', {
-    fontSize: '32px',
-    fill: '#FFF'
-  });
-  pauseButton.setInteractive();
-  pauseButton.on('pointerdown', function (event) {
-    this.scene.pause();
-  });
+  // pauseButton = this.add.text(500, 16, 'Pause', {
+  //   fontSize: '32px',
+  //   fill: '#FFF'
+  // });
+  // pauseButton.setInteractive();
+  // pauseButton.on('pointerdown', function (event) {
+  //   this.scene.pause();
+  // });
 
   // Wave Number
   waveNumber = this.add.text(296, 550, 'Wave: 1', {
+    fontSize: '32px',
+    fill: '#FFF'
+  });
+
+  // Wave Timer
+  waveTimerText = this.add.text(460, 16, '', {
     fontSize: '32px',
     fill: '#FFF'
   });
@@ -387,11 +397,15 @@ function damageLife (enemy, endPortal) {
     enemy.isHome = true;
     enemy.setActive(false);
     enemy.setVisible(false);
+    // enemy.disableBody(true, true); // test
     leave.play();
     playerLives -= 1;
     playerLivesText.setText('Lives: ' + playerLives);
   }
 }
+
+var waveCountDown = 350;
+var currentTime;
 
 /**
  * update - Function to update the game
@@ -401,14 +415,18 @@ function damageLife (enemy, endPortal) {
  * Return: void
  */
 function update (time, delta) {
+
+  // Game Over
   if (playerLives <=0) {
-    gameOverText = this.add.text(w/2, h/2, 'Game Over', {
+    gameOverText = this.add.text(420, 260, 'Game Over', {
       fontSize: '64px',
       fill: '#F00'
     });
     this.physics.pause();
     this.scene.pause();
   }
+
+  // Enemy Waves
   if (time > this.nextEnemy) {
     var enemy = enemies.get();
     if (enemy) {
@@ -418,21 +436,31 @@ function update (time, delta) {
       this.nextEnemy = time + q;
       q -= 100;
     }
+    if (q === 500) {
+      currentTime = time;
+    }
     if (q <= 500) {
       enemy.setActive(false);
       enemy.setVisible(false);
     }
-    if (q === -130000) {
+
+    // Wave Timer
+    if (q <= 450) {
+      waveCountDown -= 1;
+      waveTimerText.setText('Next Wave: ' + Math.round(waveCountDown/60));
+    }
+
+    if (q === -30000) {
       WAVE_NUMBER++;
       waveNumber.setText('Wave: ' + WAVE_NUMBER);
       q = 2000;
       ENEMY_SPEED += 1 / 20000;
       ENEMY_HEALTH += 100;
+      waveTimerText.setText('');
     }
   }
 }
 
-var gameOverText;
 class GameOver extends Phaser.Scene {
   constructor () {
     super(config);
