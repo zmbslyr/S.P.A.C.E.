@@ -17,7 +17,8 @@ var config = {
 };
 
 // width and height variables
-var w = 1120, h = 640;
+var w = 1120;
+var h = 640;
 
 /* Global variables */
 var game = new Phaser.Game(config);
@@ -49,13 +50,6 @@ var playerLivesText;
 var waveNumber;
 var waveTimerText;
 var gameOverText;
-
-
-
-// Buttons
-var pauseButton;
-var gamePaused = false;
-var pauseText;
 
 // Matrix representing the map
 var map = [
@@ -228,16 +222,6 @@ function create () {
     fontSize: '32px',
     fill: '#FFF'
   });
-
-  // Pause Button
-  // pauseButton = this.add.text(500, 16, 'Pause', {
-  //   fontSize: '32px',
-  //   fill: '#FFF'
-  // });
-  // pauseButton.setInteractive();
-  // pauseButton.on('pointerdown', function (event) {
-  //   this.scene.pause();
-  // });
 
   // Wave Number
   waveNumber = this.add.text(296, 550, 'Wave: 1', {
@@ -415,9 +399,8 @@ var currentTime;
  * Return: void
  */
 function update (time, delta) {
-
   // Game Over
-  if (playerLives <=0) {
+  if (playerLives <= 0) {
     gameOverText = this.add.text(420, 260, 'Game Over', {
       fontSize: '64px',
       fill: '#F00'
@@ -447,7 +430,7 @@ function update (time, delta) {
     // Wave Timer
     if (q <= 450) {
       waveCountDown -= 1;
-      waveTimerText.setText('Next Wave: ' + Math.round(waveCountDown/60));
+      waveTimerText.setText('Next Wave: ' + Math.round(waveCountDown / 60));
     }
 
     if (q === -30000) {
@@ -458,18 +441,5 @@ function update (time, delta) {
       ENEMY_HEALTH += 100;
       waveTimerText.setText('');
     }
-  }
-}
-
-class GameOver extends Phaser.Scene {
-  constructor () {
-    super(config);
-  }
-
-  create () {
-    gameOverText = this.add.text(w/2, h/2, 'Game Over', {
-      fontSize: '64px',
-      fill: '#F00'
-    });
   }
 }
