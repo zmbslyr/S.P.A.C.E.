@@ -3,13 +3,18 @@
     font-family: spaceFont;
     src: url(assets/fonts/nasalization-rg.ttf);
 }
+#full {
+    background-image: black;
+}
 
 body {
-    background-image: url(./assets/web/background3.jpg);
-    background-position: bottom 10px;
+    background-image: url('./assets/web/background3.jpg');
+    background-repeat: no-repeat;
     background-size: cover;
     background-color: black;
-    background-repeat: no-repeat;
+    margin-bottom: 3%;
+    height: 100%;
+    width: 100%;
 }
 
 #logo {
@@ -57,7 +62,7 @@ footer {
     left: 0;
     bottom: 0;
     height: 4%;
-    width: 98.9%;
+    width: 100%;
     background-image: linear-gradient(to top left, black, black, #251c2e, #421d5f, #4d1e63, #361f41, #251c2e, black);
     color: white;
     text-align: center;
@@ -83,10 +88,14 @@ table {
 }
 #canvas-container {
     position: relative;
-    border: 1px solid yellow;
 }
 canvas {
-    position: fixed;
-    border: 1px solid green;
-    margin-left: 11%;
+    display: block;
+    display: block;
+    margin-left: auto;
+    top: -50px;
+    align-items: center;
+    margin-right: auto;
+    margin-bottom: -60%;
+    margin-top: auto;
 }
