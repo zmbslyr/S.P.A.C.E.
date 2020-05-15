@@ -4,7 +4,10 @@
 
 ### *Space Paradox And Combat Enviroment*
 
- A tower defence strategy game, created entirely using javascript and the Phaser 3 framework
+ A tower defence strategy game, created entirely using JavaScript and the Phaser 3 framework. The goal of this project was to create a simple game similar to ones we played when we were young. The criteria we set out for ourselves was simple:
+ - Capture the essense of old flash games we played as kids
+ - Fully web-based game, in the spirit of those old flash games
+ - Use this project as a platform to learn how to create and distribute a web app
 
 ## How to play :video_game:
 
@@ -26,11 +29,13 @@ You can play our game by visiting https://spacetower.space
     
     - [Apache/2.7](https://www.apache.org/)
 
-## Constributors :computer:
+## Contributors :computer:
 
 [Jared Ratner](https://twitter.com/jratnerd)
 
 [Mark Hedgeland](https://twitter.com/MarkHedgeland)
+About Mark Hedgeland:  
+I am a full-stack software engineer. I enjoy building interesting projects, and learning new methods, and refining the way I think about code. In my free time, I enjoy writing and playing music, collaborating with friends, and learning new engineering techniques. I feel that the only way to truly understand software is to immerse yourself, and enjoy the process. If you have any questions, or just want to chat, reach out to me on social!
 
 [Nate Petersen](https://twitter.com/Natefp)
 
