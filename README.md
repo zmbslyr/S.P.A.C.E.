@@ -36,6 +36,7 @@ You can play our game by visiting https://spacetower.space
 [Mark Hedgeland](https://twitter.com/MarkHedgeland)  
 About Mark Hedgeland:  
 I am a full-stack software engineer. I enjoy building interesting projects, and learning new methods, and refining the way I think about code. In my free time, I enjoy writing and playing music, collaborating with friends, and learning new engineering techniques. I feel that the only way to truly understand software is to immerse yourself, and enjoy the process. If you have any questions, or just want to chat, reach out to me on social!
+[Twitter](https://twitter.com/markhedgeland) [LinkedIn](https://linkedin.com/in/markhedgeland) [Personal Site](http://markhedgeland.tech)  
 
 [Nate Petersen](https://twitter.com/Natefp)
 
